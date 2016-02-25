@@ -37,9 +37,13 @@ allow appdomain rootfs:lnk_file r_file_perms;
 # Search /storage/emulated tmpfs mount.
 allow appdomain tmpfs:dir r_dir_perms;
 
-# Notify zygote of the wrapped process PID when using --invoke-with.
 userdebug_or_eng(`
+  # Notify zygote of the wrapped process PID when using --invoke-with.
   allow appdomain zygote:fifo_file write;
+
+  # Allow apps to create and write method traces in /data/misc/trace.
+  allow appdomain method_trace_data_file:dir w_dir_perms;
+  allow appdomain method_trace_data_file:file { create w_file_perms };
 ')
 
 # Notify shell and adbd of death when spawned via runas for ndk-gdb.
