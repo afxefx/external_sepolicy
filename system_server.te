@@ -446,6 +446,10 @@ userdebug_or_eng(`
   allow system_server method_trace_data_file:file { create w_file_perms };
 ')
 
+# For configuring sdcardfs
+allow system_server configfs:dir { create_dir_perms };
+allow system_server configfs:file { getattr open unlink write };
+
 ###
 ### Neverallow rules
 ###
